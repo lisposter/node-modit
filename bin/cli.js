@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 var path = require('path');
-var fs = require('fs');
 var exec = require('child_process').exec;
 
 var async = require('async');
 var prompt = require('prompt');
 var replace = require('replace');
+var rimraf = require('rimraf');
 var licenseGen = require('license-gen');
 
 var name = process.argv[2];
@@ -21,7 +21,7 @@ async.waterfall([
 
         exec(cp, function(err, stdout, stderr) {
             if (err) {
-                next(err);
+                return next(err);
             }
 
             next(null, null);
@@ -31,7 +31,7 @@ async.waterfall([
     function(data, next) {
         exec('git config --get user.name', function(err, stdout, stderr) {
             if (err) {
-                next(err);
+                return next(err);
             }
 
             next(null, stdout.replace(/[\n\r]/g, ''));
@@ -69,9 +69,11 @@ async.waterfall([
             }
         };
 
+        prompt.message = 'modit'.green;
+        prompt.delimiter = ': '.grey;
         prompt.get(schema, function(err, result) {
             if(err) {
-                next(err);
+                return next(err);
             }
             next(null, result);
         });
@@ -100,12 +102,22 @@ async.waterfall([
             };
             licenseGen(result.license, config, function(err, data) {
                 if(err) {
-                    next(err);
+                    return next(err);
                 }
                 next(null, data);
             });
+        } else {
+            next(null);
         }
     }
-], function() {
-    console.info('Succeed');
+], function(err) {
+    if(err) {
+        rimraf(modDir, function(err) {
+            if(err) {
+                throw err;
+            }
+            console.info('module not created');
+        });
+    }
+    console.info('Succeed created module in ' + modDir);
 });
