@@ -1,0 +1,21 @@
+{
+  "name": "__NAME__",
+  "version": "0.0.1",
+  "description": "__DESC__",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+  ],
+  "author": "__AUTHOR__",
+  "license": "__LICENSE__"
+}
