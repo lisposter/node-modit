@@ -91,7 +91,20 @@ async.waterfall([
             });
         });
 
-        next();
+        if(result.license) {
+            var config = {
+                project: result.name,
+                author: result.author,
+                year: new Date().getFullYear(),
+                _path: modDir
+            };
+            licenseGen(result.license, config, function(err, data) {
+                if(err) {
+                    next(err);
+                }
+                next(null, data);
+            });
+        }
     }
 ], function() {
     console.info('Succeed');
