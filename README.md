@@ -12,8 +12,9 @@ $ npm install -g modit
 ## Usage
 
 ```sh
-$ modit new_module
+$ modit path/to/new_module
 ```
+this command will create a new node module called `new_module` in `path/to`.
 
 ## License
 

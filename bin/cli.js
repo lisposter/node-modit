@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec;
 
@@ -7,17 +8,30 @@ var async = require('async');
 var prompt = require('prompt');
 var replace = require('replace');
 var rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
 var licenseGen = require('license-gen');
 
-var name = process.argv[2];
+var name = '';
+var modDir = '';
 
-var modDir = path.join(process.cwd(), name);
+if(process.argv[2].indexOf(path.sep) >= 0) {
+    name = path.basename(process.argv[2]);
+    modDir = path.join(process.cwd(), process.argv[2]);
+} else {
+    name = process.argv[2];
+    modDir = path.join(process.cwd(), name);
+}
+
+if(!fs.existsSync(modDir)) {
+    mkdirp.sync(path.dirname(modDir));
+}
 
 var scaffold = path.join(path.dirname(__dirname), 'scaffold');
 
 async.waterfall([
     function(next) {
         var cp = 'cp -rf ' + scaffold + ' ' + modDir;
+        console.log(cp)
 
         exec(cp, function(err, stdout, stderr) {
             if (err) {
@@ -43,7 +57,7 @@ async.waterfall([
             properties: {
                 name: {
                     description: 'module\'s name',
-                    default: path.basename(modDir)
+                    default: name
                 },
 
                 author: {
