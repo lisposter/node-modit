@@ -75,6 +75,9 @@ async.waterfall([
             if(err) {
                 return next(err);
             }
+            if(result.license) {
+                result.license = result.license.toUpperCase();
+            }
             next(null, result);
         });
     },
