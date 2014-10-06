@@ -31,7 +31,6 @@ var scaffold = path.join(path.dirname(__dirname), 'scaffold');
 async.waterfall([
     function(next) {
         var cp = 'cp -rf ' + scaffold + ' ' + modDir;
-        console.log(cp)
 
         exec(cp, function(err, stdout, stderr) {
             if (err) {
