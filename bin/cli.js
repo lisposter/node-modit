@@ -96,7 +96,7 @@ async.waterfall([
     },
 
     function(result, next) {
-        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__LICENSE__'];
+        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__LICENSE__', '__REPO__'];
 
         holders.forEach(function(holder) {
             replace({
