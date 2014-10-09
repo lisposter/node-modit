@@ -14,8 +14,7 @@
     "type": "git",
     "url": "__REPO__"
   },
-  "keywords": [
-  ],
+  "keywords": __KEYWORDS__,
   "author": "__AUTHOR__",
   "license": "__LICENSE__"
 }

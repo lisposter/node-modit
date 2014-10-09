@@ -78,6 +78,11 @@ async.waterfall([
                 license: {
                     description: 'license for the module',
                     required: false
+                },
+
+                keywords: {
+                    description: 'keywords for this package',
+                    required: false
                 }
             }
         };
@@ -91,12 +96,17 @@ async.waterfall([
             if(result.license) {
                 result.license = result.license.toUpperCase();
             }
+            if(result.keywords) {
+                result.keywords = JSON.stringify(result.keywords.replace(/\s/g, '').split(','));
+            } else {
+                result.keywords = "[]";
+            }
             next(null, result);
         });
     },
 
     function(result, next) {
-        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__LICENSE__', '__REPO__'];
+        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__KEYWORDS__', '__LICENSE__', '__REPO__'];
 
         holders.forEach(function(holder) {
             replace({
