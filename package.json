@@ -1,6 +1,6 @@
 {
   "name": "modit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "a tool for init a new node module",
   "main": "bin/cli.js",
   "bin": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/lisposter/node-modit",
   "dependencies": {
     "async": "^0.9.0",
+    "github-url-analyzer": "^0.1.1",
     "license-gen": "^0.3.3",
     "mkdirp": "^0.5.0",
     "prompt": "^0.2.14",

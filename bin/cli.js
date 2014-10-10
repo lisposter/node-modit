@@ -10,6 +10,7 @@ var replace = require('replace');
 var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 var licenseGen = require('license-gen');
+var analyzer = require('github-url-analyzer');
 
 var name = '';
 var modDir = '';
@@ -93,20 +94,32 @@ async.waterfall([
             if(err) {
                 return next(err);
             }
+
             if(result.license) {
                 result.license = result.license.toUpperCase();
             }
+
             if(result.keywords) {
                 result.keywords = JSON.stringify(result.keywords.replace(/\s/g, '').split(','));
             } else {
                 result.keywords = "[]";
             }
+
+            if(result.repo) {
+                var urls = analyzer(result.repo);
+
+                if(urls) {
+                    result.repo = urls.repo;
+                    result.git = urls.git;
+                }
+            }
+
             next(null, result);
         });
     },
 
     function(result, next) {
-        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__KEYWORDS__', '__LICENSE__', '__REPO__'];
+        var holders = ['__NAME__', '__AUTHOR__', '__DESC__', '__GIT__', '__KEYWORDS__', '__LICENSE__', '__REPO__'];
 
         holders.forEach(function(holder) {
             replace({

@@ -12,8 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "__REPO__"
+    "url": "__GIT__"
   },
+  "bugs": {
+    "url": "__REPO__/issues"
+  },
+  "homepage": "__REPO__",
   "keywords": __KEYWORDS__,
   "author": "__AUTHOR__",
   "license": "__LICENSE__"
