@@ -9,6 +9,8 @@ __DESC__
 $ npm install __NAME__
 ```
 
+## Example
+
 ## Usage
 
 ## License

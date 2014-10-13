@@ -24,18 +24,27 @@ if(process.argv[2].indexOf(path.sep) >= 0) {
 }
 
 if(!fs.existsSync(modDir)) {
-    mkdirp.sync(path.dirname(modDir));
+    mkdirp.sync(modDir);
 }
 
 var scaffold = path.join(path.dirname(__dirname), 'scaffold');
 
 async.waterfall([
     function(next) {
-        var cp = 'cp -rf ' + scaffold + ' ' + modDir;
+        var files = fs.readdirSync(scaffold);
 
-        exec(cp, function(err, stdout, stderr) {
+        async.each(files, function(file, callback) {
+            fs.createReadStream(path.join(scaffold, file))
+                .pipe(fs.createWriteStream(path.join(modDir, file.replace(/^_/, '.'))))
+                .on('finish', function() {
+                    callback(null);
+                })
+                .on('error', function(err) {
+                    callback(err);
+                });
+        }, function(err) {
             if (err) {
-                return next(err);
+                next(err);
             }
 
             next(null, null);
