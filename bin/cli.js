@@ -11,6 +11,7 @@ var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 var licenseGen = require('license-gen');
 var analyzer = require('github-url-analyzer');
+var cp = require('stream-cp');
 
 var name = '';
 var modDir = '';
@@ -33,22 +34,12 @@ async.waterfall([
     function(next) {
         var files = fs.readdirSync(scaffold);
 
-        async.each(files, function(file, callback) {
-            fs.createReadStream(path.join(scaffold, file))
-                .pipe(fs.createWriteStream(path.join(modDir, file.replace(/^_/, '.'))))
-                .on('finish', function() {
-                    callback(null);
-                })
-                .on('error', function(err) {
-                    callback(err);
-                });
-        }, function(err) {
-            if (err) {
-                next(err);
-            }
-
+        cp(scaffold, modDir, function(file) {
+            return file.replace(/^_/, '.');
+        }, function() {
             next(null, null);
         });
+
     },
 
     function(data, next) {

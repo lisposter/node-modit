@@ -1,6 +1,6 @@
 {
   "name": "modit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a tool for init a new node module",
   "main": "bin/cli.js",
   "bin": {
@@ -31,6 +31,7 @@
     "mkdirp": "^0.5.0",
     "prompt": "^0.2.14",
     "replace": "^0.3.0",
-    "rimraf": "^2.2.8"
+    "rimraf": "^2.2.8",
+    "stream-cp": "^0.1.1"
   }
 }
