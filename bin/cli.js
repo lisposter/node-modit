@@ -32,14 +32,11 @@ var scaffold = path.join(path.dirname(__dirname), 'scaffold');
 
 async.waterfall([
     function(next) {
-        var files = fs.readdirSync(scaffold);
-
         cp(scaffold, modDir, function(file) {
             return file.replace(/^_/, '.');
         }, function() {
             next(null, null);
         });
-
     },
 
     function(data, next) {
