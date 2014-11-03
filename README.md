@@ -3,6 +3,8 @@
 
 a tool for init a new node module
 
+------
+
 ## Feature
 
 * generate basic files for a node module.

@@ -3,6 +3,8 @@
 
 __DESC__
 
+------
+
 ## Installation
 
 ```bash
