@@ -21,7 +21,7 @@ if(process.argv[2].indexOf(path.sep) >= 0) {
     modDir = path.join(process.cwd(), process.argv[2]);
 } else {
     name = process.argv[2];
-    modDir = path.join(process.cwd(), name);
+    modDir = path.join(process.cwd(), name)
 }
 
 if(!fs.existsSync(modDir)) {
